@@ -1787,10 +1787,10 @@ public class MultiLineCsvParserTest {
     String s = "Stan \"\"The Man\"\", \"Stan \"\"The Man\"\"\", \"abcdefg\"\"hijk\", abcdefg\"\"hijk  ";
     List<String> toks = rfc4180.parse(s);
     assertEquals(4, toks.size());
-    assertEquals("Stan \"\"The Man\"\"", toks.get(0));
+    assertEquals("Stan \"The Man\"", toks.get(0));
     assertEquals("Stan \"The Man\"", toks.get(1));
     assertEquals("abcdefg\"hijk", toks.get(2));
-    assertEquals("abcdefg\"\"hijk", toks.get(3));
+    assertEquals("abcdefg\"hijk", toks.get(3));
   }
 
   
@@ -1806,7 +1806,7 @@ public class MultiLineCsvParserTest {
     String s = "Stan \"\"The Man\"\", \"Stan \"\"The Man\"\"\", 42, 2 \"lala\"";
     List<String> toks = rfc4180.parse(s);
     assertEquals(4, toks.size());
-    assertEquals("\"Stan \"\"The Man\"\"\"", toks.get(0));
+    assertEquals("\"Stan \"The Man\"\"", toks.get(0));
     assertEquals("\"Stan \"The Man\"\"", toks.get(1));
     assertEquals("\"42\"", toks.get(2));
     assertEquals("\"2 \"lala\"\"", toks.get(3));
@@ -1824,7 +1824,7 @@ public class MultiLineCsvParserTest {
     String s = "Stan \"\"The Man\"\", \"Stan \"\"The Man\"\"\", 42, 2 \"lala\"";
     List<String> toks = rfc4180.parse(s);
     assertEquals(4, toks.size());
-    assertEquals("\"Stan \"\"The Man\"\"\"", toks.get(0));
+    assertEquals("\"Stan \"The Man\"\"", toks.get(0));
     assertEquals(" \"Stan \"The Man\"\"", toks.get(1));
     assertEquals("\" 42\"", toks.get(2));
     assertEquals("\" 2 \"lala\"\"", toks.get(3));
@@ -1864,7 +1864,7 @@ public class MultiLineCsvParserTest {
     String s = "Stan \"\"The Man\"\"";
     toks = rfc4180.parse(s);
     assertEquals(1, toks.size());
-    assertEquals("Stan \"\"The Man\"\"", toks.get(0));
+    assertEquals("Stan \"The Man\"", toks.get(0));
 
     toks = regular.parse(s);
     assertEquals(1, toks.size());

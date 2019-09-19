@@ -188,10 +188,10 @@ public class MultiLineCsvParser implements CsvParser {
         }
 
         if (isQuoteChar(r)) {
-          if (rfc4180quotes && !state.inEscape && state.inQuotes) {
+          if (rfc4180quotes && !state.inEscape) {
             if (isQuoteChar(r = reader.read())) {
               // then consume and follow usual flow
-              sb.append((char) r);
+              handleRegular(state, sb, (char) r);
             } else {
               // HANDLE QUOTE AND (a) BREAK IF EOF
               // OR (b) START AT TOP WITH OBTAINED NEXT CHAR
@@ -225,9 +225,9 @@ public class MultiLineCsvParser implements CsvParser {
           } else {
             handleRegular(state, sb, (char) r);
           }
-      } else {
-        handleRegular(state, sb, (char) r);
-      }
+        } else {
+          handleRegular(state, sb, (char) r);
+        }
 
         r = reader.read();
       }
