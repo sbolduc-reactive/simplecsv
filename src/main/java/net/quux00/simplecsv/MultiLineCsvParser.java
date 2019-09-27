@@ -258,6 +258,12 @@ public class MultiLineCsvParser implements CsvParser {
   }
 
   String handleEndOfToken(State state, StringBuilder sb) {
+    // in rfc4180quotes, if the only char in the string build is a quote
+    // it means the field was "", thus an empty field, and the string should reflect as such
+    if (rfc4180quotes && sb.length() == 1 && sb.charAt(0) == quotechar) {
+      sb.setLength(0);
+    }
+
     // in strictQuotes mode you don't know when to add the last seen
     // quote until the token is done; if the buffer has any characters
     // then you know a first quote was seen, so add the closing quote
